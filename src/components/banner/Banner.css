@@ -1,0 +1,68 @@
+.banner {
+    position: relative;
+    text-align: center;
+}
+
+.banner-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    opacity: 75%;
+
+}
+
+.textdiv {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+.text {
+    font-family: 'Raleway';
+    font-size: 1.25rem;
+    line-height: 125%;
+    letter-spacing: .1rem;
+    font-weight: 600;
+    width: 75%;
+    text-align: start;
+    position: absolute;
+    bottom: 13rem;
+    padding-left: 3rem;
+}
+
+.input {
+    background-color: #ffffff;
+    padding: .4rem;
+    border: none;
+    border-radius: 2rem;
+    width: 70%;
+}
+
+.searchBar {
+    position: relative;
+    bottom: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.searchIcon {
+    height: 1rem;
+    width: 1rem;
+    position: absolute;
+    right: 60px;
+    bottom: 6px;
+}
+
+.photoCredits {
+    position: absolute;
+    bottom: 5rem;
+    left: 60%;
+    font-size: .8rem;
+    letter-spacing: 1px;
+}
+
+.author {
+    font-weight: 600;
+}
+

@@ -1,0 +1,22 @@
+.header {
+    height: 4rem;
+    width: 100%;
+    text-align: start;
+    position: relative;
+    background-color: #3c3c3c;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo {
+    padding: 1rem;
+    height: 2rem;
+    width: auto;
+}
+
+.menuButton {
+    position: absolute;
+    top: 40%;
+    left: 90%;   
+    transform: scale(1.4);
+}

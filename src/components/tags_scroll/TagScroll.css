@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    overflow-x: auto;
+    padding: .6rem 0;
+    gap: .6rem;
+    white-space: nowrap;
+    width: 70%;
+    position: relative;
+    bottom: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tag {
+    background-color: #3c3c3c !important;
+    color: #ffffff !important;
+    width: auto;
+}
