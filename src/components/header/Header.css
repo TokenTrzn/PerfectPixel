@@ -38,6 +38,7 @@
     align-items: start;
     justify-content: start;
     left: 50%;
+    top: 3rem;
 }
 
 .menu.show {
@@ -84,4 +85,5 @@ li {
     background-color: #000000;
     opacity: 50%;
     right: 50%;
+    top: 0;
 }
