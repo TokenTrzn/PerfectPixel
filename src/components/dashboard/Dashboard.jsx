@@ -1,9 +1,23 @@
 import { useState, useEffect } from 'react'
 import './Dashboard.css'
 import { Photo } from '../../components/photo/Photo'
+import { SortBy } from '../../components/sort_by/SortBy'
 
 export const DashBoard = () => {
     const [photos, setPhotos] = useState([])
+
+    const [sortCriteria, setSortCriteria] = useState('')
+
+    const handleSortChnage = (newSortCriteria) => {
+        setSortCriteria(newSortCriteria)
+    }
+
+    const sortOptions = [
+        { label: 'Tendencias', value: 'tendencias' },
+        { label: 'Más Likes', value: 'likes' },
+        { label: 'Más Visitas', value: 'visitas' },
+        { label: 'Más Recientes', value: 'recientes' }
+    ]
 
     useEffect(() => {
         const fetchPhotos = async () => {
@@ -17,33 +31,35 @@ export const DashBoard = () => {
                 console.error(error)
             }
         }
-
         fetchPhotos()
     }, [])
 
 
     return (
-        <div className="dashboard">
-            <div className='dashboardLeft'>
-                {photos
-                    .filter((_, index) => index % 2 === 0)
-                    .map((photo) => (
+        <>
+            <SortBy options={sortOptions} onSortChange={handleSortChnage} />
+            <div className="dashboard">
+                <div className='dashboardLeft'>
+                    {photos
+                        .filter((_, index) => index % 2 === 0)
+                        .map((photo) => (
+                            <Photo
+                                key={photo.id}
+                                src={photo.urls.small}
+                                alt={photo.alt_description || 'Unsplash Image'}
+                            />
+                        ))}
+                </div>
+                <div className='dashboardRight'>
+                    {photos.filter((_, index) => index % 2 !== 0).map((photo) => (
                         <Photo
                             key={photo.id}
                             src={photo.urls.small}
                             alt={photo.alt_description || 'Unsplash Image'}
                         />
                     ))}
+                </div>
             </div>
-            <div className='dashboardRight'>
-                {photos.filter((_, index) => index % 2 !== 0).map((photo) => (
-                    <Photo
-                        key={photo.id}
-                        src={photo.urls.small}
-                        alt={photo.alt_description || 'Unsplash Image'}
-                    />
-                ))}
-            </div>
-        </div>
+        </>
     )
 }
