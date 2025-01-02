@@ -1,25 +1,13 @@
 .dashboardFavorites {
-    position: relative;
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-}
-
-.optionsRow {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-}
-
-.dashboard {
     display: flex;
     gap: .6rem;
     padding: 1rem;
-    margin-top: -5.3rem;
+    margin-top: -3rem;
     background-color: #ffffff;
     padding-top: 3rem;
     z-index: 4;
     position: relative;
+    height: 100vh;
 }
 
 .dashboardLeft,

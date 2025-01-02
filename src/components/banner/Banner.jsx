@@ -4,13 +4,17 @@ import banner from '../../assets/banner.jpg'
 import searchIcon from '../../assets/search_icon.png'
 import { TagScroll } from '../../components/tags_scroll/TagScroll'
 
-export const Banner = () => {
+export const Banner = ({ onSearch }) => {
 
-    const [search, setSearch] = useState('');
+    const [input, setInput] = useState('')
 
-    const handleSearch = () => {
-        console.log('Searching for:', search);
-    };
+    const handleInput = (e) => {
+        setInput(e.target.value)
+    }
+
+    const handleSubmit = () => {
+        onSearch(input)
+    }
 
     return (
         <div className="banner">
@@ -26,10 +30,10 @@ export const Banner = () => {
                     className='input'
                     type="text"
                     placeholder="Search..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    value={input}
+                    onChange={handleInput}
                 />
-                <img className='searchIcon' src={ searchIcon } />
+                <img className='searchIcon' src={ searchIcon } onClick={handleSubmit} />
             </div>
             <TagScroll />
         </div>
