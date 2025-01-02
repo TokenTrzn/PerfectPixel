@@ -1,10 +1,10 @@
-import Header from './components/header/Header'
+import { DashBoard } from '../components/dashboard/Dashboard'
 
 export const MyGallery = () => {
 
     return (
         <>
-            <Header />
+            <DashBoard/>
         </>
     )
 }

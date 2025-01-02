@@ -2,9 +2,9 @@
     width: 100%;
     text-align: end;
     position: relative;
-    z-index: 5;
     margin-top: -5rem;
     padding-top: .3rem;
+    z-index: 6;
 }
 
 .options {

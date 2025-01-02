@@ -36,6 +36,8 @@
     border: none;
     border-radius: 2rem;
     width: 70%;
+    color: #000000;
+    font-family: 'Raleway';
 }
 
 .searchBar {

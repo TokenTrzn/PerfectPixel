@@ -2,15 +2,15 @@ import { Chip } from '@mui/material'
 import './TagScroll.css'
 
 export const TagScroll = () => {
-    const tags = ['Tag', 'Tag', 'Tag', 'Tag', 'Tag', 'Tag', 'Tag', 'Tag', 'Tag']
+    const tags = ['Animales', 'Deportes', 'Arte', 'Nieve', 'Naturaleza', 'Océano', 'Abstacto', 'Coches', 'Comida']
 
     return (
         <div className='container'>
-            {tags.map((tag, index) => (
+            {tags.map((title, index) => (
                 <Chip
                     className='tag'
                     key={index}
-                    label={tag}
+                    label={title}
                 />
             ))}
         </div>

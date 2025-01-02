@@ -4,7 +4,7 @@
     position: relative;
     background-color: #3c3c3c;
     display: inline-block;
-    z-index: 5;
+    z-index: 7;
 }
 
 .logo {
@@ -30,17 +30,21 @@
     height: 100vh;
     background-color: #3c3c3c;
     color: #ffffff;
-    z-index: 5;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: start;
     left: 50%;
     top: 3rem;
+    margin: 0;
+    padding: 0;
+    padding-left: 1rem;
+    padding-top: 2rem;
 }
 
 .menu.show {
     display: block;
+    z-index: 10;
 }
 
 .hidden {
@@ -48,15 +52,13 @@
 } 
 
 .menuItem  {
+    padding-bottom: 2rem;
     text-decoration: none;
-    
-}
-
-ul {
-    margin: 0;
-    padding: 0;
-    padding-left: 1rem;
-    padding-top: 2rem;
+    font-family: 'Raleway';
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.25em;
+    line-height: 1rem;    
 }
 
 a {
@@ -69,10 +71,6 @@ a {
     line-height: 1rem;    
     padding-bottom: .6rem;
     border-bottom: 1px solid #ffffff;
-}
-
-li {
-    padding-bottom: 2rem;
 }
 
 .overlay {

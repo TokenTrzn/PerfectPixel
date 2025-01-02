@@ -7,3 +7,43 @@
     height: auto;
     border-radius: 1rem;
 }
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000000;
+    opacity: 75%;
+    z-index: 100;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20rem 10rem;
+}
+
+.modalOverlay.show {
+    display: flex;
+}
+
+.modal {
+    display: none;
+    position: relative;
+    background-color: #d9d9d9;
+    border-radius: .5rem;
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modalPhoto {
+    max-width: 90%;
+    max-height: 75%;
+    object-fit: contain;
+}

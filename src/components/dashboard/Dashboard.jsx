@@ -4,13 +4,15 @@ import { Photo } from '../../components/photo/Photo'
 import { SortBy } from '../../components/sort_by/SortBy'
 
 export const DashBoard = () => {
-    const [photos, setPhotos] = useState([])
+    const [photos, setPhotos] = useState([]);
+    const [sortCriteria, setSortCriteria] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedPhoto, setSelectedPhoto] = useState(null);
 
-    const [sortCriteria, setSortCriteria] = useState('')
-
-    const handleSortChnage = (newSortCriteria) => {
-        setSortCriteria(newSortCriteria)
-    }
+    
+    const handleSortChange = (newSortCriteria) => {
+        setSortCriteria(newSortCriteria);
+    };
 
     const sortOptions = [
         { label: 'Tendencias', value: 'tendencias' },
@@ -37,7 +39,7 @@ export const DashBoard = () => {
 
     return (
         <>
-            <SortBy options={sortOptions} onSortChange={handleSortChnage} />
+            <SortBy options={sortOptions} onSortChange={handleSortChange} />
             <div className="dashboard">
                 <div className='dashboardLeft'>
                     {photos
@@ -47,6 +49,7 @@ export const DashBoard = () => {
                                 key={photo.id}
                                 src={photo.urls.small}
                                 alt={photo.alt_description || 'Unsplash Image'}
+                                onClick={() => handleToggleModal(photo)}
                             />
                         ))}
                 </div>
@@ -56,10 +59,20 @@ export const DashBoard = () => {
                             key={photo.id}
                             src={photo.urls.small}
                             alt={photo.alt_description || 'Unsplash Image'}
+                            onClick={() => handleToggleModal(photo)}
                         />
                     ))}
                 </div>
             </div>
+
+            {selectedPhoto && (
+                <>
+                    <div className={`modalOverlay ${isModalOpen ? 'show' : 'hidden'}`} onClick={handleToggleModal}></div>
+                    <div className={`modal ${isModalOpen ? 'show' : 'hidden'}`}>
+                        <img className='modalPhoto' src={selectedPhoto.urls.full || ''} alt={selectedPhoto.alt_description || 'Unsplash Photo'} />
+                    </div>
+                </>
+            )}
         </>
     )
 }

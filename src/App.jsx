@@ -1,5 +1,10 @@
 import './App.css'
+import { Provider } from 'react-redux'
+import { store } from './store'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Home } from './pages/Home'
+import { MyGallery } from './pages/MyGallery'
+
 import { Header } from './components/header/Header'
 import { Banner } from './components/banner/Banner'
 import { DashBoard } from './components/dashboard/Dashboard'
@@ -8,9 +13,15 @@ function App() {
 
   return (
     <>
-      <Header />
-      <Banner />
-      <DashBoard />
+    <BrowserRouter>
+      <Provider store={store}>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/myGallery' element={<MyGallery />} />
+        </Routes>
+      </Provider>
+    </BrowserRouter>
     </>
   )
 }
