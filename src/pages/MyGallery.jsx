@@ -1,10 +1,10 @@
-import { DashBoard } from '../components/dashboard/Dashboard'
+import { DashboardFavorites } from "../components/dashboard_favorites/DashboardFavorites"
 
 export const MyGallery = () => {
 
     return (
         <>
-            <DashBoard/>
+            <DashboardFavorites/>
         </>
     )
 }

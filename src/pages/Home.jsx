@@ -1,12 +1,12 @@
 import { Banner } from '../components/banner/Banner'
-import { DashBoard } from '../components/dashboard/Dashboard'
+import { Dashboard } from '../components/dashboard/Dashboard'
 
 export const Home = () => {
 
     return (
         <>
             <Banner />
-            <DashBoard />
+            <Dashboard />
         </>
     )
 }
