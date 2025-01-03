@@ -3,19 +3,35 @@ import arrowBackIcon from '../../assets/arrow_back_icon.png'
 import downloadIcon from '../../assets/download_icon.png'
 import deleteIcon from '../../assets/delete_icon.png'
 import editIcon from '../../assets/edit_icon.png'
+import acceptIcon from '../../assets/accept_icon.png'
 import { saveAs } from 'file-saver'
 import { useState } from 'react'
 
 export const Modal = ({ photo, isOpen, onClose, page }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedDescription, setEditedDescription] = useState(photo.description || '');
+
     if (!isOpen || !photo) return null
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    const handleDescriptionChange = (e) => {
+        setEditedDescription(e.target.value);
+    };
+
+    const handleSaveDescription = () => {
+        photo.description = editedDescription;
+        setIsEditing(false);
+    };
 
     const handleDownload = () => {
         if (photo && photo.urls && photo.urls?.full) {
             saveAs(photo.urls?.full, `${photo.id}.jpg`);
         }
     };
-    
-    
+
     return (
         <>
             <div className='modalOverlay' onClick={onClose}>
@@ -29,8 +45,13 @@ export const Modal = ({ photo, isOpen, onClose, page }) => {
                             <p className='info'>{`Height: ${photo.height || 'Unknown'} px`}</p>
                             <p className='info'>{`Likes: ${photo.likes || 'Unknown'}`}</p>
                             <div className='editRow'>
-                                <p className='info'>{`Description: ${photo.description || 'Unknown'}`}</p>
-                                {page === 'favs' ? <img src={editIcon} className='utilIcon' id='editIcon'/> : ''}
+                                <p className='info'>{!isEditing 
+                                    ? ( `Description: ${photo.description || 'Unknown'}`) 
+                                    : <textarea className='textarea' value={editedDescription} onChange={handleDescriptionChange}
+                                    />}
+                                </p>
+                                {page === 'favs' && !isEditing ? <img src={editIcon} className='utilIcon' id='editIcon' onClick={handleEditClick} /> : ''}
+                                {page === 'favs' && isEditing ? <img src={acceptIcon} className='utilIcon' id='acceptIcon' onClick={handleSaveDescription} /> : ''}
                             </div>
                         </div>
                         <div className='utilsRow'>

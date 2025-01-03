@@ -72,7 +72,8 @@
     height: auto;
 }
 
-#editIcon {
+#editIcon,
+#acceptIcon {
     height: 1rem;
     width: auto;
     padding-right: .6rem;
@@ -89,4 +90,14 @@
     position: absolute;
     top: -1.5%;
     left: 0;
+}
+
+.textarea {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: .5rem;
+    width: 100%;
+    height: auto;
+    min-height: 5rem;
 }
