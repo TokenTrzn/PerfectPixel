@@ -77,9 +77,6 @@ export const Dashboard = ({ searchQuery }) => {
             const scrollPosition = window.scrollY + window.innerHeight;
             const documentHeight = document.documentElement.scrollHeight;
             const scrolledPercentage = (scrollPosition / documentHeight) * 100;
-            
-            console.log(`ScrollPosition: ${scrollPosition} \nwindow.scrollY: ${window.scrollY} \nwindow.innerHeight: ${window.innerHeight} \ndocumentHeight: ${documentHeight} \nscrolledPercetnage: ${scrolledPercentage}`)
-
             if (scrolledPercentage >= 95) {
                 setShowLoadMoreButton(true);
             } else {

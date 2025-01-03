@@ -83,3 +83,12 @@ a {
     right: 50%;
     top: 0;
 }
+
+.galleryTitle {
+    font-size: 1.5rem;
+    font-family: 'Raleway';
+    font-weight: 400;
+    padding-left: 5%;
+    margin: 0;
+    padding: .8125rem 6%;
+}
