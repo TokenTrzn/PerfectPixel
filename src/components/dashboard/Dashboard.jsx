@@ -29,9 +29,14 @@ export const Dashboard = ({ searchQuery }) => {
         setSortCriteria(newSortCriteria)
     }
 
-    const handlePhotoClick = (photo) => {
+    const openModal = (photo) => {
         setSelectedPhoto(photo);
         setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedPhoto(null);
+        setIsModalOpen(false);
     };
 
     const handleLoadMoreClick = () => {
@@ -49,8 +54,8 @@ export const Dashboard = ({ searchQuery }) => {
 
     const fetchPhotos = async (isLoadMore = false) => {
         const url = searchQuery
-            ? `https://api.unsplash.com/photos?query=${searchQuery}&count=10&order_by=${sortCriteria}&client_id=X0TR22RM5EBq33aLhtIlOYDpfktRyZsF03Cb5pCwDRs`
-            : `https://api.unsplash.com/photos/random?count=10&order_by=${sortCriteria}&client_id=X0TR22RM5EBq33aLhtIlOYDpfktRyZsF03Cb5pCwDRs`
+            ? `https://api.unsplash.com/photos?query=${searchQuery}&count=10&order_by=${sortCriteria}&client_id=S53VNmjPr3cT3rvQr1ZIteD15RYIvuqdgmFMtGyC2tY`
+            : `https://api.unsplash.com/photos/random?count=10&order_by=${sortCriteria}&client_id=S53VNmjPr3cT3rvQr1ZIteD15RYIvuqdgmFMtGyC2tY`
         try {
             const response = await fetch(url)
             if (response.ok) {
@@ -102,7 +107,7 @@ export const Dashboard = ({ searchQuery }) => {
                                 isLiked={favorites.includes(photo.id)}
                                 onAddFavorite={() => handleAddFavorite(photo.id)}
                                 onRemoveFavorite={() => handleRemoveFavorite(photo.id)}
-                                onClick={handlePhotoClick}
+                                onClick={() => openModal(photo)}
                             />
                         ))}
                 </div>
@@ -115,7 +120,7 @@ export const Dashboard = ({ searchQuery }) => {
                             isLiked={favorites.includes(photo.id)}
                             onAddFavorite={() => handleAddFavorite(photo.id)}
                             onRemoveFavorite={() => handleRemoveFavorite(photo.id)}
-                            onClick={handlePhotoClick}
+                            onClick={() => openModal(photo)}
                         />
                     ))}
                 </div>
@@ -130,7 +135,7 @@ export const Dashboard = ({ searchQuery }) => {
                 )}
             </div>
             {isModalOpen && (
-                <Modal photo={selectedPhoto} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                <Modal photo={selectedPhoto} isOpen={isModalOpen} onClose={closeModal} page='home' />
             )}
         </>
     )

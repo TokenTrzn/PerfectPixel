@@ -1,20 +1,33 @@
-import { useState } from 'react'
+import './Modal.css'
+import arrowBackIcon from '../../assets/arrow_back_icon.png'
+import downloadIcon from '../../assets/download_icon.png'
+import deleteIcon from '../../assets/delete_icon.png'
+import editIcon from '../../assets/edit_icon.png'
 
-export const Modal = ({ photo, isOpen, onClose }) => {
+export const Modal = ({ photo, isOpen, onClose, page }) => {
     if (!isOpen || !photo) return null
 
+    
     return (
         <>
             <div className='modalOverlay' onClick={onClose}>
                 <div className='modal' onClick={(e) => e.stopPropagation()}>
                     <div className='modalContent'>
-                        <img src={photo.urls.full} className='modalImg' />
+                        <img src={arrowBackIcon} className='backIcon' onClick={onClose} />
+                        <img src={photo.urls?.regular || null} className='modalImg' />
                         <div className='imageInfo'>
-                            <p className='info'>{`Import Date: ${photo.created_at}`}</p>
-                            <p className='info'>{`Width: ${photo.width}`}</p>
-                            <p className='info'>{`Height: ${photo.height}`}</p>
-                            <p className='info'>{`Likes: ${photo.likes}`}</p>
-                            <p className='info'>{`Description: ${photo.description}`}</p>
+                            <p className='info'>{`Import Date: ${photo.created_at || 'Unknown'}`}</p>
+                            <p className='info'>{`Width: ${photo.width || 'Unknown'} px`}</p>
+                            <p className='info'>{`Height: ${photo.height || 'Unknown'} px`}</p>
+                            <p className='info'>{`Likes: ${photo.likes || 'Unknown'}`}</p>
+                            <div className='editRow'>
+                                <p className='info'>{`Description: ${photo.description || 'Unknown'}`}</p>
+                                {page === 'favs' ? <img src={editIcon} className='utilIcon' id='editIcon'/> : ''}
+                            </div>
+                        </div>
+                        <div className='utilsRow'>
+                            <img src={downloadIcon} className='utilIcon' />
+                            {page === 'favs' ? <img src={deleteIcon} className='utilIcon' /> : ''}
                         </div>
                     </div>
                 </div>

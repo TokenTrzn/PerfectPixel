@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import './DashboardFavorites.css'
 import { Photo } from '../../components/photo/Photo'
 import { removeFavorite } from '../../features/favorite/FavoriteSlice'
+import { Modal } from '../../components/modal/Modal'
 
 export const DashboardFavorites = () => {
 
     const [photos, setPhotos] = useState([])
     const [search, setSearch] = useState('')
+    const [selectedPhoto, setSelectedPhoto] = useState(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [sortCriteria, setSortCriteria] = useState('')
     const favorites = useSelector((state) => state.favorites.favorites)
     const dispatch = useDispatch()
@@ -19,6 +22,16 @@ export const DashboardFavorites = () => {
     const handleInput = (e) => {
         setSearch(e.target.value)
     }
+
+    const openModal = (photo) => {
+        setSelectedPhoto(photo);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedPhoto(null);
+        setIsModalOpen(false);
+    };
 
     useEffect(() => {
         const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || []
@@ -44,7 +57,7 @@ export const DashboardFavorites = () => {
         fetchPhotos()
     }, [search, sortCriteria])
 
-    
+
 
     const handleRemoveFavorite = (id) => {
         dispatch(removeFavorite(id))
@@ -52,7 +65,6 @@ export const DashboardFavorites = () => {
 
     return (
         <>
-            
             <div className="dashboardFavorites">
                 <div className='dashboardLeft'>
                     {photos
@@ -60,11 +72,11 @@ export const DashboardFavorites = () => {
                         .map((photo) => (
                             <Photo
                                 key={photo.id}
-                                src={photo.urls.small}
+                                src={photo.urls?.small}
                                 alt={photo.alt_description || 'Unsplash Image'}
                                 isLiked={favorites.includes(photo.id)}
                                 onRemoveFavorite={() => handleRemoveFavorite(photo.id)}
-                                onClick={console.log(photo)}
+                                onClick={() => openModal(photo)}
                             />
                         ))}
                 </div>
@@ -72,15 +84,18 @@ export const DashboardFavorites = () => {
                     {photos.filter((_, index) => index % 2 !== 0).map((photo) => (
                         <Photo
                             key={photo.id}
-                            src={photo.urls.small}
+                            src={photo.urls?.small}
                             alt={photo.alt_description || 'Unsplash Image'}
                             isLiked={favorites.includes(photo.id)}
                             onRemoveFavorite={() => handleRemoveFavorite(photo.id)}
+                            onClick={() => openModal(photo)}
                         />
                     ))}
                 </div>
             </div>
-
+            {isModalOpen && (
+                <Modal photo={selectedPhoto} isOpen={isModalOpen} onClose={closeModal} page='favs' />
+            )}
         </>
     )
 }

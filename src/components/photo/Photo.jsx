@@ -3,7 +3,7 @@ import { useState } from 'react'
 import FavoriteIcon from '../../assets/favorite_icon.png'
 import FavoriteIconFill from '../../assets/favorite_icon_fill.png'
 
-export const Photo = ({ src, alt, isLiked,  onAddFavorite, onRemoveFavorite }) => {
+export const Photo = ({ src, alt, isLiked,  onAddFavorite, onRemoveFavorite, onClick }) => {
 
     const [isLikedState, setIsLikedState] = useState(isLiked)
 
@@ -26,7 +26,7 @@ export const Photo = ({ src, alt, isLiked,  onAddFavorite, onRemoveFavorite }) =
                         <img src={FavoriteIcon} className='icon' onClick={handleAdd} />
                     }
                 </div>
-                <img className='photo' src={src} alt={alt} />
+                <img className='photo' src={src} alt={alt} onClick={onClick}/>
             </div>
         </>
     )
