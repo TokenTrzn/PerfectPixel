@@ -20,41 +20,31 @@ export const DashboardFavorites = () => {
         setSearch(e.target.value)
     }
 
-    const sortOptions = [
-        { label: 'Tendencias', value: 'tendencias' },
-        { label: 'Más Likes', value: 'likes' },
-        { label: 'Más Visitas', value: 'visitas' },
-        { label: 'Más Recientes', value: 'recientes' }
-    ]
-
     useEffect(() => {
         const storedFavorites = JSON.parse(localStorage.getItem('favorites')) || []
-        fetchPhotosById(storedFavorites)
+        setPhotos(storedFavorites)
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(favorites))
     }, [favorites])
 
-    const fetchPhotosById = async (photoIds) => {
-        try {
-            const response = await fetch(`https://api.unsplash.com/photos/random?count=10&order_by=${sortCriteria}&client_id=7bSsA5Nj4P0ROUXi9ntX4E31_QwcXy_FnBnL8ChKDUs`)
-            if (response.ok) {
-                const data = await response.json()
-                setPhotos(data)
+    useEffect(() => {
+        const fetchPhotos = async () => {
+            try {
+                const response = await fetch(`https://api.unsplash.com/photos/random?count=10&order_by=${sortCriteria}&client_id=7bSsA5Nj4P0ROUXi9ntX4E31_QwcXy_FnBnL8ChKDUs`)
+                if (response.ok) {
+                    const data = await response.json()
+                    setPhotos(data)
+                }
+            } catch (error) {
+                console.error(error)
             }
-        } catch (error) {
-            console.error(error)
         }
-        /*
-        if (photoIds.length === 0) return
-        try {
-            const response = await fetch(`https://api.unsplash.com/photos?id=${photoIds.join(',')}&client_id=7bSsA5Nj4P0ROUXi9ntX4E31_QwcXy_FnBnL8ChKDUs`)
-            if (response.ok) {
-                const data = await response.json()
-                setPhotos(data)
-            }
-        } catch (error) {
-            console.error(error)
-        }
-            */
-    }
+        fetchPhotos()
+    }, [search, sortCriteria])
+
+    
 
     const handleRemoveFavorite = (id) => {
         dispatch(removeFavorite(id))

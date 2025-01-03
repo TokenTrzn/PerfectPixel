@@ -1,23 +1,24 @@
 import { useState } from 'react'
 
-export const Modal = () => {
-
-    const [photo, setPhoto] = useState(null)
-    const [isFavorites, setIsFavorites] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false)
-
-    const toggleModal = () => {
-        setIsModalOpen((prevState) => !prevState)
-        
-    }
-
-    const handleToggleModal = (photo = null) => {
-        setIsModalOpen((prevState) => !prevState);
-        setPhoto(photo);
-    };
+export const Modal = ({ photo, isOpen, onClose }) => {
+    if (!isOpen || !photo) return null
 
     return (
         <>
+            <div className='modalOverlay' onClick={onClose}>
+                <div className='modal' onClick={(e) => e.stopPropagation()}>
+                    <div className='modalContent'>
+                        <img src={photo.urls.full} className='modalImg' />
+                        <div className='imageInfo'>
+                            <p className='info'>{`Import Date: ${photo.created_at}`}</p>
+                            <p className='info'>{`Width: ${photo.width}`}</p>
+                            <p className='info'>{`Height: ${photo.height}`}</p>
+                            <p className='info'>{`Likes: ${photo.likes}`}</p>
+                            <p className='info'>{`Description: ${photo.description}`}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

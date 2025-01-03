@@ -21,9 +21,10 @@ export const BannerFavorites = ({ onSearch }) => {
     }
 
     const sortOptions = [
-        { label: 'Relevante', value: 'relevant' },
-        { label: 'Más Nuevo', value: 'latest' },
-        { label: 'Más Viejo', value: 'oldest' }
+        { label: 'Más Likes', value: 'likes' },
+        { label: 'Más Ancho', value: 'width' },
+        { label: 'Más Alto', value: 'height' },
+        { label: 'Más Antiguo', value: 'latest' }
     ]
 
     return (

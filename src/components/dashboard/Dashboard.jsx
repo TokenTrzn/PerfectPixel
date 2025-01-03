@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Dashboard.css'
 import { Photo } from '../../components/photo/Photo'
+import { Modal } from '../../components/modal/Modal'
 import { SortBy } from '../../components/sort_by/SortBy'
 import { useSelector, useDispatch } from 'react-redux';
 import { addFavorite, removeFavorite } from '../../features/favorite/FavoriteSlice';
@@ -28,39 +29,36 @@ export const Dashboard = ({ searchQuery }) => {
         setSortCriteria(newSortCriteria)
     }
 
-    const handleToggleModal = (photo) => {
-        setSelectedPhoto(photo)
-        setIsModalOpen((prevState) => !prevState)
+    const handlePhotoClick = (photo) => {
+        setSelectedPhoto(photo);
+        setIsModalOpen(true);
+    };
+
+    const handleLoadMoreClick = () => {
+        setShowLoadMoreButton(false)
+        fetchPhotos(true)
     }
 
     const sortOptions = [
-        { label: 'Relevante', value: 'relevant' },
-        { label: 'Más Nuevo', value: 'latest' },
-        { label: 'Más Viejo', value: 'oldest' }
+        { label: 'Más Likes', value: 'likes' },
+        { label: 'Más Ancho', value: 'width' },
+        { label: 'Más Alto', value: 'height' },
+        { label: 'Más Antiguo', value: 'latest' }
     ]
 
 
     const fetchPhotos = async (isLoadMore = false) => {
-        if (searchQuery === '') {
-            try {
-                const response = await fetch(`https://api.unsplash.com/photos/random?count=10&order_by=${sortCriteria}&client_id=X0TR22RM5EBq33aLhtIlOYDpfktRyZsF03Cb5pCwDRs`)
-                if (response.ok) {
-                    const data = await response.json()
-                    setPhotos((prevPhotos) => isLoadMore ? [...prevPhotos, ...data] : data);
-                }
-            } catch (error) {
-                console.error(error)
+        const url = searchQuery
+            ? `https://api.unsplash.com/photos?query=${searchQuery}&count=10&order_by=${sortCriteria}&client_id=X0TR22RM5EBq33aLhtIlOYDpfktRyZsF03Cb5pCwDRs`
+            : `https://api.unsplash.com/photos/random?count=10&order_by=${sortCriteria}&client_id=X0TR22RM5EBq33aLhtIlOYDpfktRyZsF03Cb5pCwDRs`
+        try {
+            const response = await fetch(url)
+            if (response.ok) {
+                const data = await response.json()
+                setPhotos((prevPhotos) => isLoadMore ? [...prevPhotos, ...data] : data);
             }
-        } else {
-            try {
-                const response = await fetch(`https://api.unsplash.com/photos?query=${searchQuery}?count=10&order_by=${sortCriteria}&client_id=X0TR22RM5EBq33aLhtIlOYDpfktRyZsF03Cb5pCwDRs`)
-                if (response.ok) {
-                    const data = await response.json()
-                    setPhotos((prevPhotos) => isLoadMore ? [...prevPhotos, ...data] : data);
-                }
-            } catch (error) {
-                console.error(error)
-            }
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -87,10 +85,7 @@ export const Dashboard = ({ searchQuery }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [])
 
-    const handleLoadMoreClick = () => {
-        setShowLoadMoreButton(false)
-        fetchPhotos(true)
-    }
+    
 
     return (
         <>
@@ -107,6 +102,7 @@ export const Dashboard = ({ searchQuery }) => {
                                 isLiked={favorites.includes(photo.id)}
                                 onAddFavorite={() => handleAddFavorite(photo.id)}
                                 onRemoveFavorite={() => handleRemoveFavorite(photo.id)}
+                                onClick={handlePhotoClick}
                             />
                         ))}
                 </div>
@@ -119,6 +115,7 @@ export const Dashboard = ({ searchQuery }) => {
                             isLiked={favorites.includes(photo.id)}
                             onAddFavorite={() => handleAddFavorite(photo.id)}
                             onRemoveFavorite={() => handleRemoveFavorite(photo.id)}
+                            onClick={handlePhotoClick}
                         />
                     ))}
                 </div>
@@ -130,18 +127,10 @@ export const Dashboard = ({ searchQuery }) => {
                     >
                         <img className='loadingMoreIcon' src={loadingMoreIcon} alt='Loading More Photos' />
                     </div>
-                )
-
-                }
+                )}
             </div>
-
-            {selectedPhoto && (
-                <>
-                    <div className={`modalOverlay ${isModalOpen ? 'show' : 'hidden'}`} onClick={handleToggleModal(null)}></div>
-                    <div className={`modal ${isModalOpen ? 'show' : 'hidden'}`}>
-                        <img className='modalPhoto' src={selectedPhoto.urls.full || ''} alt={selectedPhoto.alt_description || 'Unsplash Photo'} />
-                    </div>
-                </>
+            {isModalOpen && (
+                <Modal photo={selectedPhoto} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
             )}
         </>
     )
