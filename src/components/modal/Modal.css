@@ -49,10 +49,15 @@
     color: #000;
     font-family: 'Raleway';
     padding-bottom: 3rem;
+    max-height: 30vh;
+    overflow-y: auto;
+    padding-right: 1rem;
+    padding-left: 2rem;
+    margin-bottom: .4rem;
 }
 
 .info {
-    margin: 5px 0;
+    margin: .5rem 0;
     word-wrap: break-word;
     word-break: break-all;
     padding-right: 1rem;
@@ -63,11 +68,14 @@
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
+    align-items: center;
+    height: auto;
 }
 
 #editIcon {
     height: 1rem;
     width: auto;
+    padding-right: .6rem;
 }
 
 .utilsRow {

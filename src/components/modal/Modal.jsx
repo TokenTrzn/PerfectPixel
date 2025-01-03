@@ -3,10 +3,18 @@ import arrowBackIcon from '../../assets/arrow_back_icon.png'
 import downloadIcon from '../../assets/download_icon.png'
 import deleteIcon from '../../assets/delete_icon.png'
 import editIcon from '../../assets/edit_icon.png'
+import { saveAs } from 'file-saver'
+import { useState } from 'react'
 
 export const Modal = ({ photo, isOpen, onClose, page }) => {
     if (!isOpen || !photo) return null
 
+    const handleDownload = () => {
+        if (photo && photo.urls && photo.urls?.full) {
+            saveAs(photo.urls?.full, `${photo.id}.jpg`);
+        }
+    };
+    
     
     return (
         <>
@@ -26,7 +34,7 @@ export const Modal = ({ photo, isOpen, onClose, page }) => {
                             </div>
                         </div>
                         <div className='utilsRow'>
-                            <img src={downloadIcon} className='utilIcon' />
+                            <img src={downloadIcon} className='utilIcon' onClick={handleDownload} />
                             {page === 'favs' ? <img src={deleteIcon} className='utilIcon' /> : ''}
                         </div>
                     </div>
