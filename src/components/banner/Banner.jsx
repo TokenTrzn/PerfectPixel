@@ -24,7 +24,6 @@ export const Banner = ({ onSearch }) => {
                 alt="Banner"
             />
             <p className='text'>Las mejores fotos gratis y sin derechos, creadas por la comunidad</p>
-            <p className='photoCredits'>Foto de <span className='author'>Juan Herrero</span></p>
             <div className="searchBar">
                 <input
                     className='input'
